@@ -8,7 +8,10 @@ export default (ctx, inject) => {
   })
 
   api.onRequest((config) => {
-    config.headers.Authorization = `Bearer ${ctx.store.getters['user/apiToken']}`
+    const apiToken = ctx.store.getters['user/apiToken']
+    if (apiToken) {
+      config.headers.Authorization = `Bearer ${apiToken}`
+    }
   })
 
   api.setBaseURL('https://api.spacetraders.io')

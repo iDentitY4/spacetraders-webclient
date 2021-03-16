@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'spacetraders-webclient',
+    title: 'Spacetraders',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -20,7 +20,13 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/spacetraders-api'],
+  plugins: [
+    {
+      src: '~/plugins/spacetraders-api',
+      ssr: false,
+    },
+    { src: '~/plugins/vuex-persist', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -41,6 +47,10 @@ export default {
     '@nuxtjs/pwa',
   ],
 
+  router: {
+    middleware: ['auth'],
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
@@ -49,6 +59,10 @@ export default {
     manifest: {
       lang: 'en',
     },
+  },
+
+  tailwindcss: {
+    configPath: 'tailwind.config.js',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

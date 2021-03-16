@@ -5,7 +5,7 @@ export default (api, { store }) => ({
 
   myLoans() {
     const username = store.getters['user/username']
-    return api.$get(`users/${username}/loans`)
+    return api.$get(`/users/${username}/loans`)
   },
 
   requestNew(payload) {

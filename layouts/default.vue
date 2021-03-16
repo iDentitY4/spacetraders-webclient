@@ -63,7 +63,6 @@ import UserInfo from '~/components/UserInfo.vue'
 
 export default {
   components: { UserInfo },
-  middleware: ['auth'],
 }
 </script>
 
