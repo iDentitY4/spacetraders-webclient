@@ -8,9 +8,9 @@ export default (api, { store }) => ({
     return api.$get(`users/${username}/ships`)
   },
 
-  buy(payload) {
+  buy(location, type) {
     const username = store.getters['user/username']
-    return api.$post(`/users/${username}/ships`, payload)
+    return api.$post(`/users/${username}/ships`, { location, type })
   },
 
   view(id) {

@@ -93,12 +93,15 @@
       </div>
       <div class="px-4 pt-3 pb-4 border-t border-gray-300">
         <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">
-          Parked at
+          Sold at
         </div>
         <div class="flex flex-col space-y-2">
-          <div class="text-xl font-semibold text-white">
-            {{ ship.location }}
-          </div>
+          <ship-purchase-option
+            v-for="(purchaseOption, i) in ship.purchaseLocations"
+            :key="i"
+            :purchase-option="purchaseOption"
+            :ship-type="ship.type"
+          ></ship-purchase-option>
         </div>
       </div>
     </div>
@@ -106,7 +109,9 @@
 </template>
 
 <script>
+import ShipPurchaseOption from './ShipPurchaseOption.vue'
 export default {
+  components: { ShipPurchaseOption },
   props: {
     ship: {
       type: Object,

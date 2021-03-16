@@ -31,6 +31,17 @@ export const actions = {
       console.error(e)
     }
   },
+  async buyShip({ commit, dispatch }, { location, type }) {
+    try {
+      console.log(location, type)
+      const { user } = await this.$repositories.ships.buy(location, type)
+      commit('SET_MY_SHIPS', user.ships)
+      await dispatch('user/getUserInfo', null, { root: true })
+    } catch (e) {
+      console.error('Could not buy ship')
+      console.error(e)
+    }
+  },
 }
 
 export const getters = {

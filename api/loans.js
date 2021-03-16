@@ -8,9 +8,9 @@ export default (api, { store }) => ({
     return api.$get(`/users/${username}/loans`)
   },
 
-  requestNew(payload) {
+  requestNew(type) {
     const username = store.getters['user/username']
-    return api.$post(`/users/${username}/loans`, payload)
+    return api.$post(`/users/${username}/loans`, { type })
   },
 
   view(id) {
@@ -18,8 +18,8 @@ export default (api, { store }) => ({
     return api.$get(`/users/${username}/loans/${id}`)
   },
 
-  pay(id, payload) {
+  pay(id) {
     const username = store.getters['user/username']
-    return api.$put(`/users/${username}/loans/${id}`, payload)
+    return api.$put(`/users/${username}/loans/${id}`)
   },
 })

@@ -31,6 +31,26 @@ export const actions = {
       console.error(e)
     }
   },
+  async requestLoan({ dispatch }, { type }) {
+    try {
+      await this.$repositories.loans.requestNew(type)
+      await dispatch('getMyLoans')
+      await dispatch('user/getUserInfo', null, { root: true })
+    } catch (e) {
+      console.error('Could not request loan')
+      console.error(e)
+    }
+  },
+  async payOff({ dispatch }, { loanId }) {
+    try {
+      await this.$repositories.loans.pay(loanId)
+      await dispatch('getMyLoans')
+      await dispatch('user/getUserInfo', null, { root: true })
+    } catch (e) {
+      console.error('Could not pay off loan')
+      console.error(e)
+    }
+  },
 }
 
 export const getters = {

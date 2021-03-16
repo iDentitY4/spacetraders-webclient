@@ -38,13 +38,15 @@ export const actions = {
       throw e
     }
   },
-  login({ commit }, { username, apiToken }) {
+  async login({ commit, dispatch }, { username, apiToken }) {
     commit('SET_USERNAME', username)
     commit('SET_API_TOKEN', apiToken)
+    await dispatch('getUserInfo')
   },
   logout({ commit }) {
     commit('SET_USERNAME', null)
     commit('SET_API_TOKEN', null)
+    commit('SET_CREDITS', 0)
   },
 }
 
