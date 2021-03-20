@@ -23,5 +23,6 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'unicorn/number-literal-case': 'off',
   },
 }

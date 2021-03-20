@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen font-aliased bg-black text-white">
-    <nav class="absolute bg-transparent w-screen">
+    <nav class="absolute bg-transparent w-screen z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center">
