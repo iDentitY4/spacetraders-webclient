@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { MapControls } from 'three/examples/jsm/controls/OrbitControls'
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer'
 
-import starmap from './scenes/starmap'
+import starmap from '~/game/scenes/starmap'
 
 let camera, controls, scene, renderer, labelRenderer
 
