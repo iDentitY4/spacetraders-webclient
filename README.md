@@ -1,3 +1,5 @@
+![Logo](assets/images/logo.svg)
+
 # Spacetraders Webclient
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/74180672-1311-4767-869a-f91612f146c0/deploy-status)](https://app.netlify.com/sites/spacetraders-web/deploys)
@@ -29,3 +31,6 @@ $ npm run generate
 ```bash
 $ npm run electron-build
 ```
+
+# Attribution
+The Spacetraders Webclient Logo by [Chanut Industries](https://www.iconfinder.com/Chanut-is) is licensed under CC BY 3.0

@@ -8,6 +8,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Spacetraders',
+    titleTemplate: '%s - Spacetraders',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -60,6 +61,24 @@ export default {
   pwa: {
     manifest: {
       lang: 'en',
+      name: 'Spacetraders',
+      short_name: 'Spacetraders',
+    },
+    icon: {
+      fileName: 'logo.png',
+      sizes: [64, 120, 144, 152, 192, 384, 512],
+      targetDir: 'icons',
+    },
+    meta: {
+      lang: 'en',
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      appleStatusBarStyle: 'black-translucent',
+      favicon: true,
+      name: 'Spacetraders',
+      author: 'iDentitY4',
+      description: 'A webclient for the Spacetraders API',
+      theme_color: '#2d3748',
     },
   },
 
