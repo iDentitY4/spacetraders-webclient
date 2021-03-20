@@ -6,6 +6,8 @@
 
 Available at [https://spacetraders-web.netlify.app](https://spacetraders-web.netlify.app)
 
+Webinterface for the [Spacetraders API](https://spacetraders.io/)
+
 This is just a fun project :)
 Contributions are welcome.
 
