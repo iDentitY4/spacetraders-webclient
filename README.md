@@ -1,4 +1,11 @@
-# spacetraders-webclient
+# Spacetraders Webclient
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/74180672-1311-4767-869a-f91612f146c0/deploy-status)](https://app.netlify.com/sites/spacetraders-web/deploys)
+
+Available at [https://spacetraders-web.netlify.app](https://spacetraders-web.netlify.app)
+
+This is just a fun project :)
+Contributions are welcome.
 
 ## Build Setup
 
@@ -17,4 +24,8 @@ $ npm run start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Build electron app
+
+```bash
+$ npm run electron-build
+```
