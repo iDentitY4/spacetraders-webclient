@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen font-aliased bg-gray-900 text-white">
-    <nav class="bg-gray-800">
+  <div class="min-h-screen font-aliased bg-black text-white">
+    <nav class="absolute bg-transparent w-screen">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center">
@@ -53,17 +53,13 @@
       </div>
     </nav>
     <main>
-      <nuxt keep-alive />
+      <Nuxt />
     </main>
   </div>
 </template>
 
 <script>
-import UserInfo from '~/components/UserInfo.vue'
-
-export default {
-  components: { UserInfo },
-}
+export default {}
 </script>
 
 <style>

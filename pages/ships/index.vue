@@ -10,11 +10,17 @@ import Ship from '~/components/Ship'
 
 export default {
   components: { Ship },
-  async fetch({ store }) {
+  async fetch() {
+    const { store } = this.$nuxt.context
     await store.dispatch('ships/getMyShips')
   },
   computed: {
     ...mapGetters('ships', ['myShips']),
+  },
+  activated() {
+    if (this.$fetchState.timestamp <= Date.now() - 60000) {
+      this.$fetch()
+    }
   },
 }
 </script>

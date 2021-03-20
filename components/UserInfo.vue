@@ -66,9 +66,6 @@ export default {
       dropdownToggle: false,
     }
   },
-  async fetch({ store }) {
-    await store.dispatch('user/getInfo')
-  },
   computed: {
     ...mapGetters('user', ['username', 'credits']),
     formattedCredits() {
@@ -76,6 +73,7 @@ export default {
     },
   },
   mounted() {
+    this.$store.dispatch('user/getUserInfo')
     document.addEventListener('click', this.closeDropdown)
   },
   beforeDestroy() {

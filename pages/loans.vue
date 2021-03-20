@@ -212,12 +212,18 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  async fetch({ store }) {
+  async fetch() {
+    const { store } = this.$nuxt.context
     await store.dispatch('loans/getAvailableLoans')
     await store.dispatch('loans/getMyLoans')
   },
   computed: {
     ...mapGetters('loans', ['availableLoans', 'myLoans']),
+  },
+  activated() {
+    if (this.$fetchState.timestamp <= Date.now() - 60000) {
+      this.$fetch()
+    }
   },
   methods: {
     async requestLoan(loan) {

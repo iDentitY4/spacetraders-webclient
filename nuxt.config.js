@@ -26,6 +26,7 @@ export default {
       ssr: false,
     },
     { src: '~/plugins/vuex-persist', ssr: false },
+    { src: '~/plugins/game', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -37,6 +38,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    'nuxt-animejs',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -66,5 +68,21 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    loaders: {
+      imgUrl: {
+        // disable base64 conversion of images because it's not supported by the game engine
+        limit: false,
+      },
+    },
+    extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
+      })
+    },
+  },
 }
