@@ -4,6 +4,9 @@ import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 
 import star from '~/assets/game/star.png'
 import planet from '~/assets/game/planet.png'
+import moon from '~/assets/game/moon.png'
+import nebula from '~/assets/game/nebula.png'
+import miscObject from '~/assets/game/misc.png'
 
 const starCount = 12000
 const starBoxMaxX = 2000
@@ -38,31 +41,105 @@ function createStars(scene) {
 
 function createSystems(scene, systems) {
   const planetSprite = new THREE.TextureLoader().load(planet)
+  const moonSprite = new THREE.TextureLoader().load(moon)
+  const nebulaSprite = new THREE.TextureLoader().load(nebula)
+  const miscSprite = new THREE.TextureLoader().load(miscObject)
+
   const planetMaterial = new THREE.PointsMaterial({
     color: 0xaaaaaa,
-    size: 5,
+    size: 8,
     map: planetSprite,
     transparent: true,
   })
 
-  const locations = []
-  // const labels = []
-  const planetGeo = new THREE.BufferGeometry()
+  const moonMaterial = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 3,
+    map: moonSprite,
+    transparent: true,
+  })
+
+  const nebulaMaterial = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 20,
+    map: nebulaSprite,
+    transparent: true,
+  })
+
+  const miscMaterial = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 5,
+    map: miscSprite,
+    transparent: true,
+  })
+
+  const planetCoords = []
+  const moonCoords = []
+  const nebulaCoords = []
+  const miscCoords = []
+
   for (const system of systems) {
     for (const location of system.locations) {
-      locations.push(location.x)
-      locations.push(10)
-      locations.push(location.y)
+      switch (location.type) {
+        case 'PLANET':
+        case 'GAS_GIANT':
+          planetCoords.push(location.x)
+          planetCoords.push(10)
+          planetCoords.push(location.y)
+          break
+        case 'MOON':
+          moonCoords.push(location.x)
+          moonCoords.push(10)
+          moonCoords.push(location.y)
+          break
+        case 'NEBULA':
+          nebulaCoords.push(location.x)
+          nebulaCoords.push(10)
+          nebulaCoords.push(location.y)
+          break
+        default:
+          miscCoords.push(location.x)
+          miscCoords.push(10)
+          miscCoords.push(location.y)
+          break
+      }
     }
   }
 
+  const planetGeo = new THREE.BufferGeometry()
+  const moonGeo = new THREE.BufferGeometry()
+  const nebulaGeo = new THREE.BufferGeometry()
+  const miscGeo = new THREE.BufferGeometry()
+
   planetGeo.setAttribute(
     'position',
-    new THREE.Float32BufferAttribute(locations, 3)
+    new THREE.Float32BufferAttribute(planetCoords, 3)
+  )
+
+  moonGeo.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(moonCoords, 3)
+  )
+
+  nebulaGeo.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(nebulaCoords, 3)
+  )
+
+  miscGeo.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(miscCoords, 3)
   )
 
   const planets = new THREE.Points(planetGeo, planetMaterial)
+  const moons = new THREE.Points(moonGeo, moonMaterial)
+  const nebulas = new THREE.Points(nebulaGeo, nebulaMaterial)
+  const misc = new THREE.Points(miscGeo, miscMaterial)
+
   scene.add(planets)
+  scene.add(moons)
+  scene.add(nebulas)
+  scene.add(misc)
 }
 
 function createLabels(scene, systems) {
@@ -75,7 +152,8 @@ function createLabels(scene, systems) {
 
   for (const system of systems) {
     for (const location of system.locations) {
-      const labelDiv = document.createElement('div')
+      const labelDiv = document.createElement('a')
+      labelDiv.href = `/systems/${location.symbol}`
       labelDiv.className = 'font-semibold cursor-pointer'
       labelDiv.textContent = location.name
       labelDiv.style.marginTop = '-1em'

@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 import { MapControls } from 'three/examples/jsm/controls/OrbitControls'
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer'
+import { Interaction } from 'three.interaction'
 
 import starmap from '~/game/scenes/starmap.js'
 
@@ -60,6 +61,9 @@ export default function createGame({ container, width, height, systems }) {
 
   controls.minDistance = 100
   controls.maxDistance = 500
+
+  // eslint-disable-next-line no-unused-vars
+  const interaction = new Interaction(renderer, scene, camera)
 
   // controls.maxPolarAngle = Math.PI / 2
 

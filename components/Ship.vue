@@ -96,9 +96,12 @@
           Parked at
         </div>
         <div class="flex flex-col space-y-2">
-          <div class="text-xl font-semibold text-white">
+          <nuxt-link
+            :to="`/systems/${ship.location}`"
+            class="text-xl font-semibold text-white hover:text-blue-600"
+          >
             {{ ship.location }}
-          </div>
+          </nuxt-link>
         </div>
       </div>
     </div>
