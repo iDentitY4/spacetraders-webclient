@@ -6,6 +6,8 @@ import star from '~/assets/game/star.png'
 import planet from '~/assets/game/planet.png'
 import moon from '~/assets/game/moon.png'
 import nebula from '~/assets/game/nebula.png'
+import asteroid from '~/assets/game/asteroid.png'
+import wormhole from '~/assets/game/wormhole.png'
 import miscObject from '~/assets/game/misc.png'
 
 const starCount = 12000
@@ -43,6 +45,8 @@ function createSystems(scene, systems) {
   const planetSprite = new THREE.TextureLoader().load(planet)
   const moonSprite = new THREE.TextureLoader().load(moon)
   const nebulaSprite = new THREE.TextureLoader().load(nebula)
+  const asteroidSprite = new THREE.TextureLoader().load(asteroid)
+  const wormholeSprite = new THREE.TextureLoader().load(wormhole)
   const miscSprite = new THREE.TextureLoader().load(miscObject)
 
   const planetMaterial = new THREE.PointsMaterial({
@@ -66,6 +70,20 @@ function createSystems(scene, systems) {
     transparent: true,
   })
 
+  const asteroidMaterial = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 5,
+    map: asteroidSprite,
+    transparent: true,
+  })
+
+  const wormholeMaterial = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 15,
+    map: wormholeSprite,
+    transparent: true,
+  })
+
   const miscMaterial = new THREE.PointsMaterial({
     color: 0xaaaaaa,
     size: 5,
@@ -76,6 +94,8 @@ function createSystems(scene, systems) {
   const planetCoords = []
   const moonCoords = []
   const nebulaCoords = []
+  const asteroidCoords = []
+  const wormholeCoords = []
   const miscCoords = []
 
   for (const system of systems) {
@@ -97,6 +117,16 @@ function createSystems(scene, systems) {
           nebulaCoords.push(10)
           nebulaCoords.push(location.y)
           break
+        case 'ASTEROID':
+          asteroidCoords.push(location.x)
+          asteroidCoords.push(10)
+          asteroidCoords.push(location.y)
+          break
+        case 'WORMHOLE':
+          wormholeCoords.push(location.x)
+          wormholeCoords.push(10)
+          wormholeCoords.push(location.y)
+          break
         default:
           miscCoords.push(location.x)
           miscCoords.push(10)
@@ -109,6 +139,8 @@ function createSystems(scene, systems) {
   const planetGeo = new THREE.BufferGeometry()
   const moonGeo = new THREE.BufferGeometry()
   const nebulaGeo = new THREE.BufferGeometry()
+  const asteroidGeo = new THREE.BufferGeometry()
+  const wormholeGeo = new THREE.BufferGeometry()
   const miscGeo = new THREE.BufferGeometry()
 
   planetGeo.setAttribute(
@@ -126,6 +158,16 @@ function createSystems(scene, systems) {
     new THREE.Float32BufferAttribute(nebulaCoords, 3)
   )
 
+  asteroidGeo.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(asteroidCoords, 3)
+  )
+
+  wormholeGeo.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(wormholeCoords, 3)
+  )
+
   miscGeo.setAttribute(
     'position',
     new THREE.Float32BufferAttribute(miscCoords, 3)
@@ -134,11 +176,15 @@ function createSystems(scene, systems) {
   const planets = new THREE.Points(planetGeo, planetMaterial)
   const moons = new THREE.Points(moonGeo, moonMaterial)
   const nebulas = new THREE.Points(nebulaGeo, nebulaMaterial)
+  const asteroids = new THREE.Points(asteroidGeo, asteroidMaterial)
+  const wormholes = new THREE.Points(wormholeGeo, wormholeMaterial)
   const misc = new THREE.Points(miscGeo, miscMaterial)
 
   scene.add(planets)
   scene.add(moons)
   scene.add(nebulas)
+  scene.add(asteroids)
+  scene.add(wormholes)
   scene.add(misc)
 }
 
@@ -153,8 +199,8 @@ function createLabels(scene, systems) {
   for (const system of systems) {
     for (const location of system.locations) {
       const labelDiv = document.createElement('a')
-      labelDiv.href = `/systems/${location.symbol}`
-      labelDiv.className = 'font-semibold cursor-pointer'
+      labelDiv.href = `/locations/${location.symbol}`
+      labelDiv.className = 'location-label'
       labelDiv.textContent = location.name
       labelDiv.style.marginTop = '-1em'
       const label = new CSS2DObject(labelDiv)

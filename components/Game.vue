@@ -29,4 +29,14 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.location-label {
+  @apply text-white;
+  @apply font-semibold;
+  @apply cursor-pointer;
+}
+
+.location-label:hover {
+  @apply text-blue-400;
+}
+</style>

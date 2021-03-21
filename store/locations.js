@@ -51,6 +51,7 @@ export const actions = {
     } catch (e) {
       console.error('Could not fetch marketplace')
       console.error(e)
+      throw e
     }
   },
 }

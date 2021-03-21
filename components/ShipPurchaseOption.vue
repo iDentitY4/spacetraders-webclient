@@ -1,9 +1,11 @@
 <template>
   <div class="flex justify-between items-center p-1">
-    <div class="flex-1 text-xl font-bold">
+    <nuxt-link
+      :to="`/locations/${purchaseOption.location}`"
+      class="flex-1 text-xl font-bold hover:text-blue-600"
+    >
       {{ purchaseOption.location }}
-    </div>
-
+    </nuxt-link>
     <div class="flex-1 items-center space-x-2">
       <button
         class="py-1 px-2 font-semibold bg-gray-700 w-full text-white rounded-lg shadow-sm hover:text-white hover:bg-blue-800 hover:shadow-lg"

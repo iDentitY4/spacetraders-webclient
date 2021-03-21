@@ -15,6 +15,8 @@ export default {
     fallback: true,
   },
 
+  loading: false,
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 

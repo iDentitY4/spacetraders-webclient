@@ -2,10 +2,8 @@
   <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
     <div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
       <div
-        class="bg-cover bg-center h-56 p-4"
-        style="
-          background-image: url(https://images.unsplash.com/photo-1614728263952-84ea256f9679?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1169&q=80);
-        "
+        class="bg-contain bg-no-repeat bg-center h-56 p-4"
+        :style="`background-image: url(${require('~/assets/images/rocket.svg')});`"
       ></div>
       <div class="p-4">
         <p class="tracking-wide text-sm font-bold text-gray-400">
@@ -97,7 +95,7 @@
         </div>
         <div class="flex flex-col space-y-2">
           <nuxt-link
-            :to="`/systems/${ship.location}`"
+            :to="`/locations/${ship.location}`"
             class="text-xl font-semibold text-white hover:text-blue-600"
           >
             {{ ship.location }}
