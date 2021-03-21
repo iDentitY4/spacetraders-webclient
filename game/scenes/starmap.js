@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer'
 
 import star from '~/assets/game/star.png'
+import galaxyBackdrop from '~/assets/game/galaxy.jpg'
 import planet from '~/assets/game/planet.png'
 import moon from '~/assets/game/moon.png'
 import nebula from '~/assets/game/nebula.png'
@@ -17,11 +18,17 @@ const starBoxMaxZ = 2000
 
 function createStars(scene) {
   const starSprite = new THREE.TextureLoader().load(star)
+  const galaxySprite = new THREE.TextureLoader().load(galaxyBackdrop)
 
   const starMaterial = new THREE.PointsMaterial({
     size: 0.7,
     map: starSprite,
     transparent: true,
+  })
+
+  const galaxyMaterial = new THREE.MeshBasicMaterial({
+    map: galaxySprite,
+    color: 0x333333,
   })
 
   const positions = []
@@ -37,8 +44,15 @@ function createStars(scene) {
     new THREE.Float32BufferAttribute(positions, 3)
   )
 
+  const galaxyGeo = new THREE.PlaneGeometry(16000, 9000)
+
   const stars = new THREE.Points(starGeo, starMaterial)
   scene.add(stars)
+
+  const galaxy = new THREE.Mesh(galaxyGeo, galaxyMaterial)
+  galaxy.position.y = -5000
+  galaxy.rotation.x = -Math.PI / 2
+  scene.add(galaxy)
 }
 
 function createSystems(scene, systems) {

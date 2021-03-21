@@ -43,7 +43,7 @@ export default function createGame({ container, width, height, systems }) {
     60, // Vertial FOV
     window.innerWidth / window.innerHeight, // Aspect ratio
     1, // Frustum near plane
-    1000 // Frustum far plane
+    6000 // Frustum far plane
   )
   camera.position.set(0, 0, 0)
 
