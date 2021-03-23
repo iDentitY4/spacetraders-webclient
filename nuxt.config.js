@@ -76,14 +76,14 @@ export default {
       appleStatusBarStyle: 'black-translucent',
       favicon: true,
       name: 'Spacetraders',
-      author: 'iDentitY4',
+      author: 'iDentitY',
       description: 'A webclient for the Spacetraders API',
       theme_color: '#2d3748',
     },
   },
 
   tailwindcss: {
-    configPath: 'tailwind.config.js',
+    configPath: '~/tailwind.config.js',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

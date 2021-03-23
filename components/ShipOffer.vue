@@ -1,10 +1,7 @@
 <template>
   <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
     <div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
-      <div
-        class="bg-contain bg-no-repeat bg-center h-56 p-4"
-        :style="`background-image: url(${require('~/assets/images/rocket.svg')});`"
-      ></div>
+      <ship-image :size="ship.maxCargo" />
       <div class="p-4">
         <p class="tracking-wide text-sm font-bold text-gray-400">
           {{ ship.manufacturer }} {{ ship.class }}
@@ -107,9 +104,10 @@
 </template>
 
 <script>
+import ShipImage from './ShipImage.vue'
 import ShipPurchaseOption from './ShipPurchaseOption.vue'
 export default {
-  components: { ShipPurchaseOption },
+  components: { ShipImage, ShipPurchaseOption },
   props: {
     ship: {
       type: Object,

@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div
-      v-if="myShips.length"
-      class="flex flex-wrap flex-row py-6 sm:px-6 lg:px-8"
-    >
+  <div class="flex flex-wrap flex-row py-6 sm:px-6 lg:px-8">
+    <template v-if="$fetchState.pending">
+      <ship-skeleton v-for="i in 4" :key="i" />
+    </template>
+    <template v-else-if="myShips.length">
       <ship v-for="(ship, i) in myShips" :key="i" :ship="ship" />
-    </div>
+    </template>
     <div v-else class="flex-1 flex flex-col">
       <div class="font-semibold text-3xl">You don't own any ships yet.</div>
       <div class="text-xl text-gray-300">
@@ -62,9 +62,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import Ship from '~/components/Ship'
+import ShipSkeleton from '~/components/skeletons/ShipSkeleton.vue'
 
 export default {
-  components: { Ship },
+  components: { Ship, ShipSkeleton },
   async fetch() {
     const { store } = this.$nuxt.context
     await store.dispatch('ships/getMyShips')

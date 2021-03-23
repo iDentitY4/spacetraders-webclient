@@ -1,10 +1,7 @@
 <template>
   <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
     <div class="bg-gray-800 shadow-xl rounded-lg overflow-hidden">
-      <div
-        class="bg-contain bg-no-repeat bg-center h-56 p-4"
-        :style="`background-image: url(${require('~/assets/images/rocket.svg')});`"
-      ></div>
+      <ship-image :size="ship.maxCargo" />
       <div class="p-4">
         <p class="tracking-wide text-sm font-bold text-gray-400">
           {{ ship.manufacturer }} {{ ship.class }}
@@ -89,7 +86,7 @@
           <p class="font-semibold text-xl">{{ ship.weapons }}</p>
         </div>
       </div>
-      <div class="px-4 pt-3 pb-4 border-t border-gray-300">
+      <div class="px-4 pt-3 pb-4 border-t border-gray-600">
         <div class="text-xs uppercase font-bold text-gray-600 tracking-wide">
           Parked at
         </div>
@@ -101,13 +98,37 @@
             {{ ship.location }}
           </nuxt-link>
         </div>
+        <div class="py-3">
+          <button
+            class="w-full inline-flex items-center justify-center p-2 font-semibold bg-blue-800 text-white rounded-lg shadow-sm hover:text-white hover:bg-blue-600 hover:shadow-lg"
+          >
+            <svg
+              class="w-6 h-6 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              transform="rotate(90)"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              ></path>
+            </svg>
+            <span class="text-2xl font-bold">Relocate</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ShipImage from './ShipImage.vue'
 export default {
+  components: { ShipImage },
   props: {
     ship: {
       type: Object,

@@ -36,3 +36,4 @@ $ npm run electron-build
 
 # Attribution
 The Spacetraders Webclient Logo by [Chanut Industries](https://www.iconfinder.com/Chanut-is) is licensed under CC BY 3.0
+The spaceship pixelart by [wuhu](https://opengameart.org/content/spaceships-1) is licensed under CC BY 3.0
