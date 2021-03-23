@@ -18,30 +18,25 @@ export const mutations = {
 
 export const actions = {
   async getUserInfo({ commit }) {
-    try {
-      const { user } = await this.$repositories.user.info()
-      commit('SET_CREDITS', user.credits)
-    } catch (e) {
-      console.error('Could not fetch user info')
-      console.error(e)
-    }
+    const { user } = await this.$repositories.user.info()
+    commit('SET_CREDITS', user.credits)
   },
   async register({ commit }, { username }) {
-    try {
-      const { token, user } = await this.$repositories.user.register(username)
-      commit('SET_API_TOKEN', token)
-      commit('SET_USERNAME', user.username)
-      commit('SET_CREDITS', user.credits)
-    } catch (e) {
-      console.error(`Could not register username ${username}`)
-      console.error(e)
-      throw e
-    }
+    const { token, user } = await this.$repositories.user.register(username)
+    commit('SET_API_TOKEN', token)
+    commit('SET_USERNAME', user.username)
+    commit('SET_CREDITS', user.credits)
   },
   async login({ commit, dispatch }, { username, apiToken }) {
     commit('SET_USERNAME', username)
     commit('SET_API_TOKEN', apiToken)
-    await dispatch('getUserInfo')
+    try {
+      await dispatch('getUserInfo')
+    } catch (error) {
+      commit('SET_USERNAME', null)
+      commit('SET_API_TOKEN', null)
+      throw error
+    }
   },
   logout({ commit }) {
     commit('SET_USERNAME', null)

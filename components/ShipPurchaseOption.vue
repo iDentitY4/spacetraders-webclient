@@ -8,7 +8,8 @@
     </nuxt-link>
     <div class="flex-1 items-center space-x-2">
       <button
-        class="py-1 px-2 font-semibold bg-gray-700 w-full text-white rounded-lg shadow-sm hover:text-white hover:bg-blue-800 hover:shadow-lg"
+        v-if="credits >= purchaseOption.price"
+        class="py-1 px-2 font-semibold bg-blue-600 w-full text-white rounded-lg shadow-sm hover:text-white hover:bg-green-800 hover:shadow-lg"
         @click="purchase()"
         @mouseover="hover = true"
         @mouseout="hover = false"
@@ -51,11 +52,37 @@
           </span>
         </div>
       </button>
+      <button
+        v-else
+        class="py-1 px-2 font-semibold w-full bg-red-900 text-white rounded-lg shadow-sm cursor-not-allowed hover:bg-red-800 hover:shadow-lg"
+      >
+        <div class="inline-flex items-center justify-between">
+          <svg
+            class="w-8 h-8 mr-2 flex-initial"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          <span class="flex-initial font-semibold text-2xl">
+            {{ purchaseOption.price.toLocaleString() }}
+          </span>
+        </div>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     purchaseOption: {
@@ -72,6 +99,9 @@ export default {
       hover: false,
     }
   },
+  computed: {
+    ...mapGetters('user', ['credits']),
+  },
   methods: {
     async purchase() {
       try {
@@ -79,6 +109,7 @@ export default {
           location: this.purchaseOption.location,
           type: this.shipType,
         })
+        this.$router.push('/ships')
       } catch (e) {
         //
       }

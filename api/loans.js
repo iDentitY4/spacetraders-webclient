@@ -1,25 +1,40 @@
 export default (api, { store }) => ({
-  availableLoans() {
-    return api.$get(`/game/loans`)
+  async availableLoans() {
+    return await api.$get(`/game/loans`)
   },
 
-  myLoans() {
+  async myLoans() {
     const username = store.getters['user/username']
-    return api.$get(`/users/${username}/loans`)
+    return await api.$get(`/users/${username}/loans`)
   },
 
-  requestNew(type) {
+  async requestNew(type) {
     const username = store.getters['user/username']
-    return api.$post(`/users/${username}/loans`, { type })
+    try {
+      return await api.$post(`/users/${username}/loans`, { type })
+    } catch (error) {
+      if (error.response) {
+        const status = error.response.status
+
+        switch (status) {
+          case 422:
+            throw new Error('Only one loan allowed.')
+          default:
+            throw new Error('Something went wrong')
+        }
+      } else {
+        throw error
+      }
+    }
   },
 
-  view(id) {
+  async view(id) {
     const username = store.getters['user/username']
-    return api.$get(`/users/${username}/loans/${id}`)
+    return await api.$get(`/users/${username}/loans/${id}`)
   },
 
-  pay(id) {
+  async pay(id) {
     const username = store.getters['user/username']
-    return api.$put(`/users/${username}/loans/${id}`)
+    return await api.$put(`/users/${username}/loans/${id}`)
   },
 })

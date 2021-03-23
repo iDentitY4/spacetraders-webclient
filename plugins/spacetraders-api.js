@@ -1,11 +1,7 @@
 import createRepositories from '~/api/repositories.js'
 
 export default (ctx, inject) => {
-  const api = ctx.$axios.create({
-    // headers: {
-    //   Authorization: `Bearer ${apiToken}`,
-    // },
-  })
+  const api = ctx.$axios.create({})
 
   api.onRequest((config) => {
     const apiToken = ctx.store.getters['user/apiToken']

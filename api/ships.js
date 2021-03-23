@@ -1,29 +1,29 @@
 export default (api, { store }) => ({
-  availableShips() {
-    return api.$get(`/game/ships`)
+  async availableShips() {
+    return await api.$get(`/game/ships`)
   },
 
-  myShips() {
+  async myShips() {
     const username = store.getters['user/username']
-    return api.$get(`users/${username}/ships`)
+    return await api.$get(`users/${username}/ships`)
   },
 
-  buy(location, type) {
+  async buy(location, type) {
     const username = store.getters['user/username']
-    return api.$post(`/users/${username}/ships`, { location, type })
+    return await api.$post(`/users/${username}/ships`, { location, type })
   },
 
-  view(id) {
+  async view(id) {
     const username = store.getters['user/username']
-    return api.$get(`/users/${username}/ships/${id}`)
+    return await api.$get(`/users/${username}/ships/${id}`)
   },
 
   // update(payload, id) {
   //   return $axios.$put(`/${resource}/${id}`, payload)
   // },
 
-  sell(id) {
+  async sell(id) {
     const username = store.getters['user/username']
-    return api.$delete(`/users/${username}/ships/${id}`)
+    return await api.$delete(`/users/${username}/ships/${id}`)
   },
 })

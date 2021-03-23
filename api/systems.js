@@ -1,5 +1,5 @@
 export default (api, ctx) => ({
-  index() {
-    return api.$get(`/game/systems`)
+  async index() {
+    return await api.$get(`/game/systems`)
   },
 })

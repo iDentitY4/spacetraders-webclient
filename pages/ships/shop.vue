@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-wrap flex-row py-6 sm:px-6 lg:px-8">
-    <ShipOffer v-for="(ship, i) in availableShips" :key="i" :ship="ship" />
+    <ship-offer v-for="(ship, i) in availableShips" :key="i" :ship="ship" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import ShipOffer from '~/components/ShipOffer'
+import ShipOffer from '~/components/ShipOffer.vue'
 
 export default {
   components: { ShipOffer },

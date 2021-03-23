@@ -38,6 +38,21 @@
                       />
                     </div>
                   </div>
+                  <div class="py-2">
+                    <div
+                      v-if="error"
+                      class="bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                      role="alert"
+                    >
+                      <strong class="font-bold">Oh no!</strong>
+                      <span v-if="error.message" class="block sm:inline">{{
+                        error.message
+                      }}</span>
+                      <span v-else class="block sm:inline"
+                        >Something went wrong.</span
+                      >
+                    </div>
+                  </div>
                   <button
                     class="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-blue-700"
                     type="submit"
@@ -73,15 +88,20 @@ export default {
     return {
       username: '',
       apiToken: '',
+      error: null,
     }
   },
   methods: {
     async login() {
-      await this.$store.dispatch('user/login', {
-        username: this.username,
-        apiToken: this.apiToken,
-      })
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch('user/login', {
+          username: this.username,
+          apiToken: this.apiToken,
+        })
+        this.$router.push('/')
+      } catch (error) {
+        this.error = error
+      }
     },
   },
 }

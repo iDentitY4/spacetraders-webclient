@@ -1,17 +1,17 @@
 export default (api, { store }) => ({
-  info(symbol) {
-    return api.$get(`/game/locations/${symbol}`)
+  async info(symbol) {
+    return await api.$get(`/game/locations/${symbol}`)
   },
 
-  ships(symbol) {
-    return api.$get(`game/locations/${symbol}/ships`)
+  async ships(symbol) {
+    return await api.$get(`game/locations/${symbol}/ships`)
   },
 
-  locationsInSystem(symbol) {
-    return api.$get(`game/systems/${symbol}/locations`)
+  async locationsInSystem(symbol) {
+    return await api.$get(`game/systems/${symbol}/locations`)
   },
 
-  marketplace(symbol) {
-    return api.$get(`game/locations/${symbol}/marketplace`)
+  async marketplace(symbol) {
+    return await api.$get(`game/locations/${symbol}/marketplace`)
   },
 })
