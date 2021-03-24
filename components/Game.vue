@@ -9,6 +9,10 @@ export default {
       type: Array,
       default: null,
     },
+    ships: {
+      type: Array,
+      default: null,
+    },
   },
   data() {
     return {
@@ -20,9 +24,10 @@ export default {
   mounted() {
     this.game = this.$game({
       container: this.$refs.game,
-      systems: this.systems,
       width: this.width,
       height: this.height,
+      systems: this.systems,
+      ships: this.ships,
     })
     this.game.start()
   },

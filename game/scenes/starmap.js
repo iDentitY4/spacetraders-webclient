@@ -10,6 +10,7 @@ import nebula from '~/assets/game/nebula.png'
 import asteroid from '~/assets/game/asteroid.png'
 import wormhole from '~/assets/game/wormhole.png'
 import miscObject from '~/assets/game/misc.png'
+import ship from '~/assets/game/ship.png'
 
 const starCount = 12000
 const starBoxMaxX = 2000
@@ -31,17 +32,21 @@ function createStars(scene) {
     color: 0x333333,
   })
 
-  const positions = []
+  const vertices = []
 
   const starGeo = new THREE.BufferGeometry()
   for (let i = 0; i < starCount; i++) {
-    positions.push(Math.random() * starBoxMaxX - starBoxMaxX / 2)
-    positions.push(Math.random() * starBoxMaxY - starBoxMaxY / 2)
-    positions.push(Math.random() * starBoxMaxZ - starBoxMaxZ / 2)
+    const x = THREE.MathUtils.randFloatSpread(starBoxMaxX)
+    const y = THREE.MathUtils.randFloatSpread(starBoxMaxY)
+    const z = THREE.MathUtils.randFloatSpread(starBoxMaxZ)
+    // positions.push(Math.random() * starBoxMaxX - starBoxMaxX / 2)
+    // positions.push(Math.random() * starBoxMaxY - starBoxMaxY / 2)
+    // positions.push(Math.random() * starBoxMaxZ - starBoxMaxZ / 2)
+    vertices.push(x, y, z)
   }
   starGeo.setAttribute(
     'position',
-    new THREE.Float32BufferAttribute(positions, 3)
+    new THREE.Float32BufferAttribute(vertices, 3)
   )
 
   const galaxyGeo = new THREE.PlaneGeometry(16000, 9000)
@@ -224,13 +229,39 @@ function createLabels(scene, systems) {
   }
 }
 
-export default function createScene({ systems }) {
+function createShips(scene, ships) {
+  const shipSprite = new THREE.TextureLoader().load(ship)
+
+  const shipMaterial = new THREE.PointsMaterial({
+    color: 0xaaaaaa,
+    size: 8,
+    map: shipSprite,
+    transparent: true,
+  })
+
+  const shipCoords = []
+
+  const shipGeo = new THREE.BufferGeometry()
+  for (const ship of ships) {
+    shipCoords.push(ship.x, 10, ship.y)
+  }
+  shipGeo.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(shipCoords, 3)
+  )
+
+  const shipPoints = new THREE.Points(shipGeo, shipMaterial)
+  scene.add(shipPoints)
+}
+
+export default function createScene({ systems, ships }) {
   const scene = new THREE.Scene()
   scene.background = new THREE.Color(0x000000)
 
   createStars(scene)
   createSystems(scene, systems)
   createLabels(scene, systems)
+  createShips(scene, ships)
 
   return scene
 }

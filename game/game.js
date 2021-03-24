@@ -15,8 +15,14 @@ function resize() {
   renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
-export default function createGame({ container, width, height, systems }) {
-  scene = starmap({ systems })
+export default function createGame({
+  container,
+  width,
+  height,
+  systems,
+  ships,
+}) {
+  scene = starmap({ systems, ships })
 
   renderer = new THREE.WebGLRenderer({ antialias: true })
   renderer.setPixelRatio(window.devicePixelRatio)
